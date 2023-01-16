@@ -12,10 +12,13 @@ export default function ThemeProvider ({children}) {
       shape: { borderRadius: 6 },
       typography,
       shadows: shadows(),
+    //   customShadows: customShadows(),
+
     }),[]
     )
     const theme = createTheme(themeOptions);
-    theme.components= componentsOverride(theme)
+    // console.log(theme.components=componentsOverride(theme))
+    // theme.components= componentsOverride(theme)
 
     return (
         <StyledEngineProvider injectFirst>

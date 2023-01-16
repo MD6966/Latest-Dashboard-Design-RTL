@@ -1,10 +1,13 @@
 import Router from './routes'
 import ThemeProvider from './theme'
+import './App.css'
 function App() {
   return (
-    <>
-    <Router /> 
-    </>
+    <div className='app'>
+      <ThemeProvider>
+        <Router /> 
+      </ThemeProvider>
+    </div>
   );
 }
 
