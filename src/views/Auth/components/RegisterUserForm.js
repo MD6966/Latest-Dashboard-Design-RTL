@@ -11,12 +11,14 @@ import { makeStyles } from '@mui/styles'
 import SelectComponent from './SelectComponent'
 import Cities from './Cities.json'
 import ButtonComponent from './ButtonComponent'
-import {Alert, Box, Button, Grid, IconButton, InputAdornment, Snackbar, Typography, Divider } from '@mui/material'
+import {Alert, Box, Button, Grid, IconButton, InputLabel, Snackbar, Typography, Divider, TextField, MenuItem, Select, FormControl } from '@mui/material'
+import PlaceIcon from '@mui/icons-material/Place';
 // import { register } from '../../store/actions/authActions'
 // import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 // import { useSnackbar } from 'notistack'
 // import {RotatingLines  } from 'react-loader-spinner'
+
 
 const useStyles = makeStyles((theme)=> ({
     icons: {
@@ -36,9 +38,11 @@ const RegisterUserForm = () => {
           address: "",
           geyserid: "",
           geysername: "",
-          module : 'Smart Hybrid Geyser System ',
+          module : "",
           city : null,
           code : null,
+          deviceid: "",
+          devicelocation: "",
           };
           const formValidation = Yup.object({
               username: Yup.string()
@@ -69,7 +73,14 @@ const RegisterUserForm = () => {
               .min(4, 'Enter Valid Geyser Name'),
               city: Yup.string()
               .required("Please Select Your City")
-              .nullable()
+              .nullable(),
+              module:Yup.string()
+              .required("Please Select Module First"),
+              deviceid: Yup.string()
+              .required("Please Select Device I'd"),
+              devicelocation : Yup.string()
+              .required("Enter Device Location")
+
           })
           const [Loader ,setLoader] = useState({
             loading:false
@@ -84,12 +95,19 @@ const RegisterUserForm = () => {
         const handleShowPassword1 = () => {
           setShowPassword1(!showPassword1)
         }
+        const [selectedModule, setSelectedModule] = React.useState('')
+        const handleChange = (event) => {
+          setSelectedModule(event.target.value);
+        };
+        // console.log(selectedModule)
+       
   return (
     <div>
         <Formik
         initialValues={{...initialValues}}
         validationSchema = {formValidation}
         onSubmit={(values, {resetForm})=> {
+          console.log(values)
           setLoader({
               ...Loader,
               loading : true
@@ -113,6 +131,25 @@ const RegisterUserForm = () => {
           <Form>
 
         <Grid container spacing={2}>
+          <Grid item xs={12} sm={12} md={12} lg={12} xl={12} >
+            <FormControl fullWidth>
+              
+          <InputLabel id="demo-simple-select-filled-label"> Select Module</InputLabel>
+          <Select 
+          labelId="demo-simple-select-filled-label"
+          id="demo-simple-select-filled"
+          value={selectedModule}
+          onChange={handleChange}
+          placeholder="Hello Jee "
+          >
+            <MenuItem value="Geysital"> Geysital </MenuItem>
+            <MenuItem value="Water Tank System"> Water Tank System </MenuItem>
+            <MenuItem value="Fuel Monitoring System"> Fuel Monitoring System </MenuItem>
+
+          </Select>
+            </FormControl>
+
+          </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6} xl={6} >
             <TextFieldComponent name="username" label="User Name" icon={<Person className={classes.icons}/>} /> 
         </Grid>
@@ -149,8 +186,20 @@ const RegisterUserForm = () => {
       <TextFieldComponent name="address" label="Address" icon={<HomeIcon className={classes.icons}/> } />
            
            </Grid>
+           {selectedModule === 'Fuel Monitoring System' ? 
+          <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+      <TextFieldComponent name="devicelocation" label="Device Location" icon={<PlaceIcon className={classes.icons}/> } />
+
+            </Grid> : null
+          }
            <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-      <TextFieldComponent name="geyserid" label="Geyser ID" icon={<QrCode2Icon className={classes.icons}/> } />
+            {selectedModule === 'Geysital' ? 
+            <TextFieldComponent name="geyserid" label="Geyser ID" icon={<QrCode2Icon className={classes.icons}/> } />
+              :
+            <TextFieldComponent name="deviceid" label="Device ID" icon={<QrCode2Icon className={classes.icons}/> } />
+            
+          }
+
            </Grid>
            <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
       <TextFieldComponent name="geysername" label="Geyser Name" icon={<ContentPasteIcon className={classes.icons} /> } />

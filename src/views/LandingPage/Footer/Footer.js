@@ -1,10 +1,18 @@
-import { Box, Divider, Grid, Typography } from '@mui/material'
+import { Box, Divider, Grid, styled, Typography } from '@mui/material'
 import React from 'react'
 import DoneIcon from '@mui/icons-material/Done';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import EmailIcon from '@mui/icons-material/Email';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import { Link } from 'react-router-dom';
 const Footer = () => {
+  const StyledLink = styled(Link)(({theme})=> ({
+    textDecoration: 'none',
+    '&:hover' : {
+      textDecoration:'underline',
+      fontWeight:'bold'
+    }
+  }))
   return (
     <div style={{height:'60vh', background:'#CDCED0', padding:'5rem'}}>
       <Grid container spacing={5}>
@@ -65,9 +73,9 @@ info@rubitronlabs.org
 <Box sx={{display:'flex', mb:'1rem'}}>
 
 <AdminPanelSettingsIcon sx={{mr:'1rem'}} />
-<Typography>
+<StyledLink to='/admin/login' >
 Admin 
-</Typography>
+</StyledLink>
 </Box>
     </Grid>
       </Grid>

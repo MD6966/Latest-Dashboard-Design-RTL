@@ -5,9 +5,9 @@ import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 
 const NAV_WIDTH = 280;
 
-const HEADER_MOBILE = 64;
+const HEADER_MOBILE = 54;
 
-const HEADER_DESKTOP = 92;
+const HEADER_DESKTOP = 62;
 
 const StyledRoot = styled(AppBar)(({theme})=> ({
     ...bgBlur({color: theme.palette.background.default}),
@@ -26,9 +26,9 @@ const StyledRoot = styled(AppBar)(({theme})=> ({
 
 const TopBar = () => {
   return (
-    <StyledRoot>
+    <StyledRoot >
         <StyledToolbar>
-          <Typography sx={{color:'#000000', fontWeight:800, fontSize:'2rem'}}>
+          <Typography sx={{color:'#000000', fontWeight:800, fontSize:'1.5rem'}}>
            Dashboard
           </Typography>
           <Box sx={{flexGrow:1}} />
