@@ -73,7 +73,7 @@ info@rubitronlabs.org
 <Box sx={{display:'flex', mb:'1rem'}}>
 
 <AdminPanelSettingsIcon sx={{mr:'1rem'}} />
-<StyledLink to='/admin/login' >
+<StyledLink to='/auth/admin/login' >
 Admin 
 </StyledLink>
 </Box>

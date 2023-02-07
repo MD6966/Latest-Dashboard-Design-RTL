@@ -36,7 +36,7 @@ const Admin = () => {
             <TextField label='Password' sx={{mb:'1rem', width:'350px',}}/>
             <StyledButton variant='contained'
             component={Link}
-            to='/admin-dashboard/all'
+            to='/admin/users'
             > Login </StyledButton>
         </Stack>
     </StyledRoot>

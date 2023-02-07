@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom'
 import { bgBlur } from '../../../utils/cssStyles'
 import LoadingBar from 'react-top-loading-bar'
 import { useState } from 'react'
+import Page from '../../../components/page/Page'
 const StyledRoot = styled(AppBar)(({theme})=> ({
   ...bgBlur({color: theme.palette.background.default}),
   position:'fixed',
@@ -19,7 +20,9 @@ const AdminLogin = () => {
   const [progress, setProgress] = useState(100)
  
   return (
-  <div>
+  <Page
+  title='Admin Login'
+  >
     <StyledRoot>
       <StyledToolbar>
         Admin Login 
@@ -30,7 +33,7 @@ const AdminLogin = () => {
     loaderSpeed={1000}
     height={3}
         progress={progress} />
-  </div>
+  </Page>
 
   )
 }

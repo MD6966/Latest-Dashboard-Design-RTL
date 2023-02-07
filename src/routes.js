@@ -12,10 +12,13 @@ import AllModules from "./views/FuelMonitoringSystem/components/AllModulesPage/A
 import { AdminAuthLayout } from "./layouts/Admin/adminAuth";
 import { AdminLoginPage } from "./views/Admin";
 import AdminDashboard from "./layouts/Admin/Dashboard/Dashboard";
-import AdminModules from "./views/Admin/AdminModules/AdminModules";
-import Geysital from "./views/Admin/AdminModules/components/Geysital/Geysital";
-import Fuel from "./views/Admin/AdminModules/components/Fuel System/FuelSystem";
-import Protogen from "./views/Admin/AdminModules/components/Protogen/Protogen";
+import Users from "./views/Admin/components/Users";
+import Modules from "./views/Admin/components/Modules";
+import Complaints from "./views/Admin/components/complaints/Complaints";
+import Email from "./views/Admin/components/Email/Email";
+import RegisterAdminSide from "./views/Admin/components/Register";
+
+
 
 export default function Router() {
   const routes = useRoutes([
@@ -49,18 +52,21 @@ export default function Router() {
       ],
     },
     {
-      path: "admin",
+      path: "auth/admin",
       element: <AdminAuthLayout />,
       children: [{ path: "login", element: <AdminLoginPage /> }],
     },
     {
-      path: "admin-dashboard",
+      path: "admin",
       element: <AdminDashboard />,
       children: [
-        { path: "all", element: <AdminModules /> },
-        { path: "geysital", exact: true, element: <Geysital /> },
-        { path: "fuel", exact: true, element: <Fuel /> },
-        { path: "protogen", exact: true, element: <Protogen /> },
+        {path:'users', element:<Users /> },
+        {path:'modules', element:<Modules /> },
+        {path:'complaints', element:<Complaints /> },
+        {path:'email', element:<Email /> },
+        {path:'register', element:<RegisterAdminSide /> },
+
+
       ],
     },
   ]);

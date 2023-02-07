@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Protogen = () => {
+const Users = () => {
   return (
     <div>
-      Protogen 
+      Hello from Users
     </div>
   )
 }
 
-export default Protogen
+export default Users

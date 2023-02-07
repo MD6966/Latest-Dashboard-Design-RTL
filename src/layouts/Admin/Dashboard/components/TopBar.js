@@ -5,8 +5,11 @@ import React from 'react'
 import { bgBlur } from '../../../../utils/cssStyles'
 const StyledRoot = styled(AppBar)(({theme})=> ({
     ...bgBlur({color: theme.palette.background.default}),
-    position:'static',
+    position:'fixed',
     backgroundColor:'#264252',
+    zIndex:theme.zIndex.drawer + 1,
+    
+    
   
   }))
   const StyledToolbar = styled(Toolbar)(({theme})=> ({
@@ -16,7 +19,7 @@ const StyledRoot = styled(AppBar)(({theme})=> ({
 
 const TopBar = () => {
   return (
-    <StyledRoot>
+    <StyledRoot >
     <StyledToolbar>
       <Box>
         <Typography> Admin Pannel </Typography>
