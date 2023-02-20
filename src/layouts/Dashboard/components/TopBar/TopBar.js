@@ -1,7 +1,17 @@
-import React from 'react'
-import { AppBar, Toolbar, styled, Typography, Stack, Avatar, Box } from '@mui/material'
+import React, {useState} from 'react'
+import { AppBar, Toolbar, styled, Typography, Stack, Avatar, Box, Menu, MenuItem, 
+Container, Divider, List, ListItemIcon, ListItemText, ListItem, Button } from '@mui/material'
 import { bgBlur } from '../../../../utils/cssStyles'
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import PersonIcon from '@mui/icons-material/Person';
+import AddIcon from '@mui/icons-material/Add';
+import SettingsIcon from '@mui/icons-material/Settings';
+import InfoIcon from '@mui/icons-material/Info';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+import ViewProfile from './components/ViewProfile';
+import AddSensor from './components/AddSensor'
+import Settings from './components/Settings';
+import HelpCenter from './components/HelpCenter';
 
 const NAV_WIDTH = 280;
 
@@ -25,7 +35,42 @@ const StyledRoot = styled(AppBar)(({theme})=> ({
    }))
 
 const TopBar = () => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const [dialogOpen, setDialogOpen]=useState(false)
+  const [settingsDialog, setSettingsDialog]= useState(false)
+  const [helpDialog, setHelpDialog]= useState(false)
+  const [sensorDialog, setSensorDialog]= useState(false)
+  const handleAvatarClick =(event) => {
+    setAnchorEl(event.currentTarget);
+
+  }
+  const handleClose = () => {
+    setAnchorEl(null);
+
+  }
+  const ProfileDialogHandler = () => {
+    setDialogOpen(true)
+    setAnchorEl(null);
+   }
+   const settingsDialogHandler = () => {
+    setSettingsDialog(true)
+    setAnchorEl(null);
+   }
+
+   const helpDialogHandler = () => {
+    setHelpDialog(true)
+    setAnchorEl(null)
+   }
+   const sensorDialogHandler = () => {
+      setSensorDialog(true)
+      setAnchorEl(null)
+   }
+   const handleSignOut = () => {
+
+   }
   return (
+    <>
     <StyledRoot >
         <StyledToolbar>
           <Typography sx={{color:'#000000', fontWeight:800, fontSize:'1.5rem'}}>
@@ -41,11 +86,68 @@ const TopBar = () => {
           }}
           >
               <NotificationsActiveIcon sx={{color:'#000000', mr:'1rem'}} /> 
-              <Avatar src="/assets/images/user.png" />
+              <Avatar src="/assets/images/user.png" sx={{cursor:'pointer'}} onClick={handleAvatarClick}/>
           </Stack>
 
         </StyledToolbar>
     </StyledRoot>
+            <Menu
+            open={open}
+         anchorEl={anchorEl}
+         onClose={handleClose}>
+          <MenuItem>
+          <Container>
+          <Typography variant='h6' style={{fontWeight:'bold'}}>Hello Jee </Typography>
+          </Container>
+          <Divider style={{margin:'0px 10px'}} /> 
+          </MenuItem>
+          <List>
+   
+          <ListItem disablePadding button  onClick={ProfileDialogHandler}style={{paddingLeft:'0.5rem'}}>
+          <ListItemIcon style={{minWidth: '30px'}}>
+            <PersonIcon /> 
+          </ListItemIcon>
+            <ListItemText> View Profile</ListItemText>
+          </ListItem>
+          <ListItem disablePadding button onClick={sensorDialogHandler}style={{paddingLeft:'0.5rem'}}>
+          <ListItemIcon style={{minWidth: '30px'}}>
+            <AddIcon  /> 
+          </ListItemIcon>
+            <ListItemText> Add Sensor </ListItemText>
+          </ListItem>
+          <ListItem disablePadding button  onClick={settingsDialogHandler}style={{paddingLeft:'0.5rem', marginRight:'2rem'}}>
+          <ListItemIcon style={{minWidth: '30px'}}>
+            <SettingsIcon /> 
+          </ListItemIcon>
+            <ListItemText> Account Settings</ListItemText>
+          </ListItem>
+          <ListItem disablePadding button onClick={helpDialogHandler}style={{paddingLeft:'0.5rem'}}>
+          <ListItemIcon style={{minWidth: '30px'}}>
+            <InfoIcon  /> 
+          </ListItemIcon>
+            <ListItemText> Help Center</ListItemText>
+          </ListItem>
+          <ListItem disablePadding button onClick={handleClose}style={{paddingLeft:'0.5rem'}}>
+          <ListItemIcon style={{minWidth: '30px'}}>
+            <QuestionMarkIcon  /> 
+          </ListItemIcon>
+            <ListItemText> FAQ's</ListItemText>
+          </ListItem>
+          
+         </List>
+         <Divider style={{margin:'0px 10px'}} />  
+         <Box sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+         <Button 
+        onClick={handleSignOut}
+        > Sign Out </Button>
+        </Box>
+            </Menu>
+            <ViewProfile open={dialogOpen} close ={()=> setDialogOpen(false)}  />
+            <AddSensor open={sensorDialog} close ={()=> setSensorDialog(false)} /> 
+            <Settings open={settingsDialog} close={()=> setSettingsDialog(false)} /> 
+            <HelpCenter open={helpDialog} close={()=> setHelpDialog(false)}/> 
+
+            </>
   )
 }
 

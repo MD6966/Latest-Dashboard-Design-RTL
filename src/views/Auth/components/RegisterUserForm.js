@@ -7,7 +7,7 @@ import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import { Call, Email, Lock, Person, Visibility, VisibilityOff } from '@mui/icons-material'
 import HomeIcon from '@mui/icons-material/Home';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
-import { makeStyles } from '@mui/styles'
+import { makeStyles, propsToClassKey } from '@mui/styles'
 import SelectComponent from './SelectComponent'
 import Cities from './Cities.json'
 import ButtonComponent from './ButtonComponent'
@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme)=> ({
     }
   }))
 
-const RegisterUserForm = () => {
+const RegisterUserForm = (props) => {
+  const {display} = props;
     // const {enqueueSnackbar} = useSnackbar()
     const classes = useStyles()
       const initialValues = {
@@ -219,11 +220,14 @@ const RegisterUserForm = () => {
             ):
       <ButtonComponent > Register </ButtonComponent>
           }
+          <Box sx={{display:display}}>
+
            <Divider> <Typography> OR</Typography> </Divider>
         
              <Typography style={{marginTop:'0.5rem', textAlign:'center'}}>
                 Already have account ? <Link to='/auth/login' style={{textDecoration:'none', letterSpacing:'0px', color:'#264252'}}> Login here</Link>
               </Typography>
+          </Box>
       
 
 

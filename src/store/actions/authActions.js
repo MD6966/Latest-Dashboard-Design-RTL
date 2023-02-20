@@ -14,15 +14,12 @@ export const login = ({email, password},ip) => async(dispatch) =>  {
         password,
         ip 
     })
-    
-   
-
     try {
       const data = await axios.post('https://hybrid.testserver.rubitronlabs.org/user/login',
         body,
         config
       );
-    
+    console.log(data)
       dispatch({
         type: 'LOGIN_SUCCESS',
         payload: data.data
@@ -32,6 +29,7 @@ export const login = ({email, password},ip) => async(dispatch) =>  {
       //   type: 'USER_LOADED',
       //   payload: data.data
       // });
+      return {data}
       
     }
     catch (err) {

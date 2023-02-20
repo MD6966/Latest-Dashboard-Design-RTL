@@ -3,6 +3,7 @@ import React from 'react'
 import {bgBlur} from '../../../utils/cssStyles'
 import {styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 
@@ -35,7 +36,7 @@ const StyledLoginButton = styled(Button)(({theme})=> ({
 }))
 
 const Header = () => {
-
+const isAuthenticated = useSelector((state)=> state.auth.isAuthenticated)
   return (
     <>
     <StyledRoot>
@@ -47,9 +48,15 @@ const Header = () => {
             <StyledButton> Details </StyledButton>
           </Box>
           <Box>
-         <StyledLoginButton variant='outlined'
-         component={Link} to='/auth/login'
+            {
+              isAuthenticated ? <StyledLoginButton variant='outlined'
+              component={Link} to='/dashboard/geyser_hybrid'
+              > Go to dashboard</StyledLoginButton> : 
+              <StyledLoginButton variant='outlined'
+              component={Link} to='/auth/login'
          > Login</StyledLoginButton>
+            }
+         
           </Box>
         </StyledToolbar>
       </StyledRoot>

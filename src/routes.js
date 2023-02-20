@@ -17,10 +17,14 @@ import Modules from "./views/Admin/components/Modules";
 import Complaints from "./views/Admin/components/complaints/Complaints";
 import Email from "./views/Admin/components/Email/Email";
 import RegisterAdminSide from "./views/Admin/components/Register";
+import ErrorPage from './components/ErrorBoundary/components/ErrorPage'
+import { useSelector } from "react-redux";
 
 
 
 export default function Router() {
+  const isAuthenticated = useSelector((state)=> state.auth.isAuthenticated)
+  console.log(isAuthenticated)
   const routes = useRoutes([
     {
       path: "/",
@@ -36,13 +40,13 @@ export default function Router() {
       ],
     },
     {
-      element: <ProtectedRoutes isLogged={true} />,
+      element: <ProtectedRoutes isLogged={isAuthenticated} />,
       children: [
         {
           path: "dashboard",
           element: <Dashboard />,
           children: [
-            // {element: <Navigate to="/" />, index: true},
+            {element: <Navigate to="/" />, index: true},
             { path: "geyser_hybrid", element: <HybridGeyserOverview /> },
             { path: "tank", element: <WaterTankSystem /> },
             { path: "fuel", element: <FuelMonitoringSystem /> },
@@ -68,6 +72,11 @@ export default function Router() {
 
 
       ],
+    },
+
+    {
+      path:'error',
+      element: <ErrorPage /> 
     },
   ]);
   return routes;

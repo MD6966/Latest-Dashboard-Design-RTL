@@ -92,7 +92,7 @@ setShowPassword(!showPassword)
                 </Typography>
                 <Typography sx={{textAlign:'center'}}>Sign Up on the internal platform</Typography>
         <Box style={{marginTop:'1rem', }}>
-         <RegisterUserForm /> 
+         <RegisterUserForm/> 
         </Box>
       </Grid>
         

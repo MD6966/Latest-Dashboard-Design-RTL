@@ -1,10 +1,16 @@
 import {InputAdornment, Box, Grid,Typography, TextField, IconButton, Divider, styled, Button  } from '@mui/material'
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import axios from 'axios'
 import Page from '../../components/page/Page'
 import { Email, Lock, Visibility, VisibilityOff } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import LockIcon from '@mui/icons-material/Lock';
 import DialogueComponent from './components/DialogueComponent';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate, } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
+import {RotatingLines  } from 'react-loader-spinner'
+import { login } from '../../store/actions/authActions';
 
 const CenteredBox=styled(Box)(({theme})=> ({
     display:'flex',
@@ -12,20 +18,34 @@ const CenteredBox=styled(Box)(({theme})=> ({
     alignItems:'center'
 }))
 const Login = () => {
-    const initialValues = {
-        email:'',
-        password: '',
+  const initialValues = {
+    email:'',
+    password: '',
     
-      }
+  }
+  const [formState, setFormState] = React.useState({
+      isValid: false,
+      values: {},
+      touched: {},
+      errors: {},
+      submitError: null
+    });
+
+      const navigate = useNavigate()
+      const dispatch = useDispatch()
+      const [ip, setIp]=useState(null)
       const [open, setOpen]= React.useState(false)
-    const [formState, setFormState] = React.useState({
-        isValid: false,
-        values: {},
-        touched: {},
-        errors: {},
-        submitError: null
-      });
       const [showPassword, setShowPassword] = React.useState(false)
+      const isAuthenticated = useSelector((state)=> state.auth.isAuthenticated)
+      const isLoading = useSelector((state) => state.auth.isLoading)
+      // const {enqueueSnackbar} = useSnackbar()
+
+      useEffect(() => {
+        axios.get('https://api.ipify.org?format=json').then((data) => {
+          setIp(data.data.ip);
+          
+        });
+      }, []);
   const handleClose=()=> {
     setOpen(false)
   }
@@ -38,16 +58,15 @@ const Login = () => {
   const handleSubmit = async (e) => {
       e.preventDefault();
       setFormValues(initialValues);
-    //   await dispatch(login(formValues, ip)).then((res)=>
-      // enqueueSnackbar(res)
-    //   enqueueSnackbar(res.err.response.data, {
-    //     variant:'error'
-    //   })
-    //   );
+      await dispatch(login(formValues, ip))
   }
   const handleShowPassword =()=> {
     setShowPassword(!showPassword)
   }
+  if (isAuthenticated)
+   {
+    return(navigate('/dashboard/geyser_hybrid', {replace: true}))
+   }
   return (
     <Page
     title="Login">
@@ -132,33 +151,29 @@ const Login = () => {
         }}
          
           > Forgot Password?</Typography>
-          <CenteredBox>
+         
+          {
+            isLoading ? 
+            <CenteredBox>
+
+            <RotatingLines
+            strokeColor="blue"
+            strokeWidth="5"
+            animationDuration="0.75"
+            width="50"
+            visible={isLoading}/>  
+            </CenteredBox> : 
+            <CenteredBox>
 
           <Button 
             type='submit'
             variant='contained'
-            component={Link}
-            to='/dashboard'
             style={{
                 backgroundColor:'#264252'
             }}
             > Login</Button>
-            </CenteredBox>
-          {/* {
-            isLoading ? <RotatingLines
-            strokeColor="blue"
-             strokeWidth="5"
-             animationDuration="0.75"
-              width="50"
-             visible={isLoading}/> : 
-            <Button 
-            type='submit'
-            variant='contained'
-            style={{
-              marginTop:'1rem'
-            }}
-            > Login</Button>
-          } */}
+            </CenteredBox> 
+          }
           </form>
           <DialogueComponent open={open} close={handleClose} />
           {/* <LoginForm />  */}
