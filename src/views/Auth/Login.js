@@ -38,7 +38,7 @@ const Login = () => {
       const [showPassword, setShowPassword] = React.useState(false)
       const isAuthenticated = useSelector((state)=> state.auth.isAuthenticated)
       const isLoading = useSelector((state) => state.auth.isLoading)
-      // const {enqueueSnackbar} = useSnackbar()
+      const {enqueueSnackbar} = useSnackbar()
 
       useEffect(() => {
         axios.get('https://api.ipify.org?format=json').then((data) => {
@@ -57,8 +57,13 @@ const Login = () => {
   }
   const handleSubmit = async (e) => {
       e.preventDefault();
-      setFormValues(initialValues);
-      await dispatch(login(formValues, ip))
+      await dispatch(login(formValues, ip)).then((res)=>
+      // alert(res.err.response.data)
+      enqueueSnackbar(res.err.response.data, {
+        variant:'error'
+      })
+      )
+      // setFormValues(initialValues);
   }
   const handleShowPassword =()=> {
     setShowPassword(!showPassword)

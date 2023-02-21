@@ -1,22 +1,29 @@
 import React from 'react'
 import { Button, Dialog, DialogContent, DialogTitle, TextField, Typography, Box, CircularProgress } from '@mui/material'
-
+import { forgetPassword } from '../../../store/actions/authActions'
+import { useDispatch } from 'react-redux'
+import { useSnackbar } from 'notistack'
 const DialogueComponent = ({open, close}) => {
     const [email, setEmail] = React.useState()
   const [loader, setLoader] = React.useState(false)
+  const dispatch = useDispatch()
+  const enqueueSnackbar = useSnackbar()
   const handleChange = (e) => {
     setEmail(e.target.value)
 }
 const handleSubmit = (e) => {
     setLoader(true)
     e.preventDefault()
+    dispatch(forgetPassword(email)).then((res)=> {
+      setEmail('')
       setLoader(false)
-        setEmail('')
-    // dispatch(forgetPassword(email)).then((res)=> {
-    //   enqueueSnackbar(res.res.data.message, {
-    //     variant:'success'
-    //   })
-    // })
+      // enqueueSnackbar(res.res.data.message, {
+      //   variant:'success'
+      // })
+      alert(res.res.data.message)
+      close()
+
+    })
   }
   return (
     <div>

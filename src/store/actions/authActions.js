@@ -142,7 +142,7 @@ export const forgetPassword = (value) => async() => {
     email
   }
   try {
-      const res = await axios.post(`${process.env.REACT_APP_URL}user/forgotPass`,body)
+      const res = await axios.post('https://hybrid.testserver.rubitronlabs.org/user/forgotPass',body)
       return{
         res
       }

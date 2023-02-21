@@ -12,7 +12,9 @@ import ViewProfile from './components/ViewProfile';
 import AddSensor from './components/AddSensor'
 import Settings from './components/Settings';
 import HelpCenter from './components/HelpCenter';
-
+import { logout } from '../../../../store/actions/authActions';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 const NAV_WIDTH = 280;
 
 const HEADER_MOBILE = 54;
@@ -35,6 +37,8 @@ const StyledRoot = styled(AppBar)(({theme})=> ({
    }))
 
 const TopBar = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [dialogOpen, setDialogOpen]=useState(false)
@@ -67,7 +71,8 @@ const TopBar = () => {
       setAnchorEl(null)
    }
    const handleSignOut = () => {
-
+    dispatch(logout())
+    navigate('/')
    }
   return (
     <>
