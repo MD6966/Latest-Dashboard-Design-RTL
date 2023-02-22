@@ -4,6 +4,7 @@ import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogT
 import { complaint } from '../../../../../store/actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
+import { RotatingLines } from 'react-loader-spinner';
 
 const HelpCenter = (props) => {
   const [complaintMessage, setComplaintMessage] = React.useState()
@@ -11,7 +12,7 @@ const HelpCenter = (props) => {
   const dispatch = useDispatch()
   const user = useSelector((state)=> state.auth.user)
   const id = user.id
-//   const {enqueueSnackbar} = useSnackbar()
+  const {enqueueSnackbar} = useSnackbar()
   const username = user.name
   const handleChange = (e) => {
     setComplaintMessage(e.target.value)
@@ -21,10 +22,11 @@ const HelpCenter = (props) => {
     setLoader(true)
     dispatch(complaint(complaintMessage, id, username)).then((res)=>{
       setLoader(false)
-    //   enqueueSnackbar(res.res.data.message, {
-    //     variant:'success'
-    //   })
+      enqueueSnackbar(res.res.data.message, {
+        variant:'success'
+      })
       setComplaintMessage("")
+      props.close()
     } 
     )      
    
@@ -55,7 +57,17 @@ const HelpCenter = (props) => {
 </DialogContent>
 <DialogActions>
     <Button onClick={props.close} > Close</Button>
-    <Button variant={loader ? 'disabled' : 'contained'} type='submit'> {loader ? <CircularProgress size='1.5rem' /> : 'Send' } </Button>
+    <Button variant={loader ? 'disabled' : 'contained'} type='submit'> {loader ? 
+    
+    
+    <RotatingLines 
+  strokeColor="blue"
+  strokeWidth="5"
+  animationDuration="0.75"
+  width="30"
+  visible={loader}
+  /> 
+    : 'Send' } </Button>
 </DialogActions>
         </form>
 </Dialog>

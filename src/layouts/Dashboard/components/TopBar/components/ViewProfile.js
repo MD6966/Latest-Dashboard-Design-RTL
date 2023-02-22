@@ -3,6 +3,7 @@ import React from 'react'
 import PersonIcon from '@mui/icons-material/Person';
 import {uploadPicture} from '../../../../../store/actions/userActions'
 import { useSelector, useDispatch } from 'react-redux';
+import { RotatingLines } from 'react-loader-spinner';
 const ViewProfile = (props) => {
   const [picture, setPicture] = React.useState({
     filename: 'Choose File',
@@ -21,7 +22,8 @@ const ViewProfile = (props) => {
   }
   
   const handleUpload = () => {
-    dispatch(uploadPicture(picture.file, user.id));
+    dispatch(uploadPicture(picture.file, user.id))
+
   }
   // console.log(user)
   return (
@@ -51,9 +53,13 @@ const ViewProfile = (props) => {
                      </label>
                      </Button>
                       <input id='img' type='file' style={{display:'none'}} onChange={handleChange} />
-                    <Button variant='contained'
+                    
+                     
+                      <Button variant= {picture.file ? 'contained' : 'disabled'}
                     onClick={handleUpload}
                     > Upload</Button>
+                    
+                    
                       </CardActions>
                  </Box>
                 

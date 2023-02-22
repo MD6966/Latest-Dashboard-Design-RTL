@@ -6,6 +6,7 @@ import Scrollbar from '../../../../components/scrollbar/Scrollbar';
 import useResponsive from '../../../../components/hooks/useResponsive';
 import {navConfig} from './navConfig'
 import NavSection from '../../../../components/NavSection/NavSection'
+import { useSelector } from 'react-redux';
 
 const NAV_WIDTH = 280;
 
@@ -19,6 +20,7 @@ const StyledAccount = styled('div')(({ theme }) => ({
 
 
   export default function Nav({ openNav, onCloseNav }) {
+    const user = useSelector((state) => state.auth.user)
     const { pathname } = useLocation();
   
     const isDesktop = useResponsive('up', 'lg');
@@ -44,11 +46,11 @@ const StyledAccount = styled('div')(({ theme }) => ({
         <Box sx={{ mb: 5, mx: 2.5 }}>
           <Link underline="none">
             <StyledAccount>
-              <Avatar  alt="photoURL" src="/assets/images/user.png" />
+              <Avatar  alt="photoURL" src={`${process.env.REACT_APP_URL}${user.profilePic}`} />
   
               <Box sx={{ ml: 2 }}>
                 <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                  Rubitron Labs
+                 {user.name}
                 </Typography>
   
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>

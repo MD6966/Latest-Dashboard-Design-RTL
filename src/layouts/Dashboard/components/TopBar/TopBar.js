@@ -13,7 +13,7 @@ import AddSensor from './components/AddSensor'
 import Settings from './components/Settings';
 import HelpCenter from './components/HelpCenter';
 import { logout } from '../../../../store/actions/authActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 const NAV_WIDTH = 280;
 
@@ -37,6 +37,8 @@ const StyledRoot = styled(AppBar)(({theme})=> ({
    }))
 
 const TopBar = () => {
+  const user = useSelector((state)=> state.auth.user)
+  console.log(user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -91,7 +93,7 @@ const TopBar = () => {
           }}
           >
               <NotificationsActiveIcon sx={{color:'#000000', mr:'1rem'}} /> 
-              <Avatar src="/assets/images/user.png" sx={{cursor:'pointer'}} onClick={handleAvatarClick}/>
+              <Avatar src={`${process.env.REACT_APP_URL}${user.profilePic}`} sx={{cursor:'pointer'}} onClick={handleAvatarClick}/>
           </Stack>
 
         </StyledToolbar>
@@ -102,7 +104,7 @@ const TopBar = () => {
          onClose={handleClose}>
           <MenuItem>
           <Container>
-          <Typography variant='h6' style={{fontWeight:'bold'}}>Hello Jee </Typography>
+          <Typography variant='h6' style={{fontWeight:'bold'}}>{user.name} </Typography>
           </Container>
           <Divider style={{margin:'0px 10px'}} /> 
           </MenuItem>

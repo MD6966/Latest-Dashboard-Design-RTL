@@ -3,6 +3,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Car
 import { useDispatch, useSelector } from 'react-redux';
 import { addSensor } from '../../../../../store/actions/userActions';
 import { useSnackbar } from 'notistack';
+import {RotatingLines  } from 'react-loader-spinner'
 
 const AddSensor = (props) => {
   const inititalvalues = {
@@ -11,7 +12,7 @@ const AddSensor = (props) => {
   }
   const dispatch = useDispatch()
   const user = useSelector((state)=> state.auth.user)
-  // const {enqueueSnackbar} = useSnackbar()
+  const {enqueueSnackbar} = useSnackbar()
   const user_id =user.id
   const [formValues, setFormValues] =React.useState(inititalvalues)
   const [loader, setLoader] = React.useState(false)
@@ -28,20 +29,21 @@ const AddSensor = (props) => {
     e.preventDefault();
     if(formValues.boardId.length < 11 || formValues.boardId.length > 11 )
     {
-      // enqueueSnackbar('Board Id length must be equal to 11', {
-      //   variant:'warning'
-      // })
+      enqueueSnackbar('Board Id length must be equal to 11', {
+        variant:'warning'
+      })
     }
     else{
       setLoader(true)
       dispatch(addSensor(formValues, user_id)).then((res)=>
       {
-        // console.log(res.res.data.message)
+        console.log(res)
         setLoader(false)
-        // enqueueSnackbar(res.res.data.message, {
-        //   variant:'info'
-        // })
-        setFormValues(inititalvalues) 
+        enqueueSnackbar(res.res.data.message, {
+          variant:'info'
+        })
+        setFormValues(inititalvalues)
+        props.close() 
     }
     )
     }
@@ -77,7 +79,16 @@ const AddSensor = (props) => {
 </DialogContent>
 <DialogActions>
   <Button onClick={props.close} > Close</Button>
-  {loader ? <CircularProgress style={{size:'1.5rem'}} /> : 
+  {loader ? 
+  <RotatingLines 
+  strokeColor="blue"
+  strokeWidth="5"
+  animationDuration="0.75"
+  width="30"
+  visible={loader}
+  /> 
+  
+  : 
     <Button variant='contained'  type='submit'> Add </Button>
   }
 </DialogActions>

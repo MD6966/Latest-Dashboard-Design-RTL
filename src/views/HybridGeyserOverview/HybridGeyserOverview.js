@@ -1,7 +1,9 @@
 import { Box, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Page from '../../components/page/Page'
+import { get_hybrid_geyser_sensor } from '../../store/actions/geyserHybridActions'
 import ModuleList from './components/ModuleList'
 const useStyles = makeStyles((theme)=> ({
     root: {
@@ -12,7 +14,16 @@ const useStyles = makeStyles((theme)=> ({
 }))
 const HybridGeyserOverview = () => {
     const classes = useStyles()
+    const user = useSelector((state) => state.auth.user)
+    // const user_id = useSelector((state) => state.auth.user.id);
+    const dispatch = useDispatch()
+    const geyserhybrid = useSelector((state)=> state.geyserhybrid.geyser)
+    console.log(geyserhybrid)
     const [blocked, setBlocked] = React.useState(false)
+
+    React.useEffect(()=> {
+        // dispatch(get_hybrid_geyser_sensor)
+    }, [])
 
   return (
     <Page title="Smart Hybird Geyser System">

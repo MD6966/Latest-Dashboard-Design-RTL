@@ -36,7 +36,7 @@ console.log(file)
     };
 
     try {
-        const res = await axios.post(`${process.env.REACT_APP_URL}geyser_hybrid/add/${user_id}`, body, config)
+        const res = await axios.post(`https://hybrid.testserver.rubitronlabs.org/geyser_hybrid/add/${user_id}`, body, config)
         return {
           res
         }

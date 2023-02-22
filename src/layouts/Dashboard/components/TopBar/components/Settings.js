@@ -7,6 +7,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider,
     import { useDispatch, useSelector } from 'react-redux';
     import { changePassword } from '../../../../../store/actions/userActions';
     import { useSnackbar } from 'notistack';
+    import { RotatingLines } from 'react-loader-spinner';
     const Settings = (props) => {
       const initialValues = {
         password:'',
@@ -15,7 +16,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider,
       const user = useSelector((state)=> state.auth.user)
       const user_id = user.id
       const dispatch = useDispatch()
-    //   const {enqueueSnackbar} = useSnackbar()
+      const {enqueueSnackbar} = useSnackbar()
       const [formValues, setFormValues] = React.useState(initialValues)
       const [loader, setLoader] = React.useState(false)
       const handleChange = (e) => {
@@ -24,22 +25,22 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider,
             ...formValues, [name]:value
           })
       }
-    //   const handleSubmit = (e) => {
-    //     e.preventDefault()
-    //     setLoader(true)
-    //     dispatch(changePassword(formValues, user_id)).then((res) => {
-    //       setLoader(false)
-    //       enqueueSnackbar(res.res.data.message, {
-    //         variant:'info'
-    //       })
-    //       setFormValues(initialValues)
-    //     })
+      const handleSubmit = (e) => {
+        e.preventDefault()
+        setLoader(true)
+        dispatch(changePassword(formValues, user_id)).then((res) => {
+          setLoader(false)
+          enqueueSnackbar(res.res.data.message, {
+            variant:'info'
+          })
+          setFormValues(initialValues)
+        })
     
-    //   }
+      }
       return (
         <div>
           <Dialog open ={props.open} onClose={props.close} fullWidth>
-            <form >
+            <form onSubmit={handleSubmit} >
     
     <DialogTitle>
     
@@ -67,7 +68,19 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider,
     <DialogActions>
         <Button onClick={props.close}> Close</Button>
         {
-          loader ? <CircularProgress style={{size:'1.5rem'}} /> : <Button variant='contained' type='submit'  > Change Password</Button>
+          loader ? 
+          
+          <RotatingLines 
+            strokeColor="blue"
+            strokeWidth="5"
+            animationDuration="0.75"
+            width="30"
+            visible={loader}
+            />  
+          
+          : 
+          
+          <Button variant='contained' type='submit'  > Change Password</Button>
         }
         
     </DialogActions>
