@@ -5,7 +5,8 @@ import Select from '@mui/material/Select';
 import { Divider, InputLabel } from '@mui/material';
 import Body from './../Body/Body'
 
-const Header = () => {
+const Header = (props) => {
+  const {geyserhybrid} = props
     const testData = [
         {id:0, title:'Geyser 1'},
         {id:1, title:'Smart Geyser'},
@@ -14,7 +15,7 @@ const Header = () => {
 
     ]
     // const [data, setData] = React.useState(testData[0])
-    const [value, setValue] = React.useState(testData[0])
+    const [value, setValue] = React.useState(geyserhybrid[0])
     const handleChange = (f) => {
         // setData(f)
         // console.log(test)
@@ -29,10 +30,10 @@ const Header = () => {
         label="Select Module"
         >
            {
-      testData.map((val,index) => (
+      geyserhybrid.map((val,index) => (
        
         
-        <MenuItem onClick={() => handleChange(val)} value={val.title} index={index} key ={index}>{val.title}
+        <MenuItem onClick={() => handleChange(val)} value={val.name} index={index} key ={index}>{val.name}
             
          </MenuItem>
        
@@ -43,7 +44,21 @@ const Header = () => {
         </Select>
       </FormControl>
       <Divider sx={{mt:'1rem'}} /> 
-      <Body />
+      {
+        geyserhybrid.map((v, index) => (
+          <>
+          {
+            value.name === v.name ? 
+            <Body 
+            key={index}
+            sensor = {v}
+            />
+            : null
+          }
+          
+          </>
+        ))
+      }
     </div>
   )
 }

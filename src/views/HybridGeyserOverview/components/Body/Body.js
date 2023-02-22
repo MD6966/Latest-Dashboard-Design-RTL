@@ -9,25 +9,27 @@ import PropaneIcon from '@mui/icons-material/Propane';
 import Settings from './components/Settings';
 import RecentAlerts from './components/RecentAlerts';
 import Logs from './components/Logs'
-const Body = () => {
+const Body = (props) => {
+  const {sensor} = props
+  console.log(sensor)
   return (
     <div>
       <Container maxWidth='xl'>
-        <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi, Welcome Back
+        <Typography variant="h4" sx={{ m: 2, textAlign:'center' }}>
+          {sensor.name}
         </Typography>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-            <CustomCards title="Geyser Status" status="OFF" Icon={<PowerSettingsNewIcon sx={{fontSize:'2.5rem'}} />}/> 
+            <CustomCards title="Geyser Status" status={sensor.geyser_status === true ? ('On') : ('Off')} Icon={<PowerSettingsNewIcon sx={{fontSize:'2.5rem'}} />}/> 
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <CustomCards title="Source" status="Hybrid" color="warning" Icon={<WifiTetheringIcon sx={{fontSize:'2.5rem'}}/>}/> 
+            <CustomCards title="Source" status={sensor.supply_mode} color="warning" Icon={<WifiTetheringIcon sx={{fontSize:'2.5rem'}}/>}/> 
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <CustomCards title="Temperature" status="50 °C" color="info" Icon={<DeviceThermostatIcon sx={{fontSize:'2.5rem'}} />}/> 
+            <CustomCards title="Temperature" status={`${sensor.temperature} °C`} color="info" Icon={<DeviceThermostatIcon sx={{fontSize:'2.5rem'}} />}/> 
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <CustomCards title="Gas Valve" status="Close" color="error" Icon={<PropaneIcon sx={{fontSize:'2.5rem'}}/>}/> 
+            <CustomCards title="Gas Valve" status={sensor.gas_valve === true ? ('Open') : ('Close')} color="error" Icon={<PropaneIcon sx={{fontSize:'2.5rem'}}/>}/> 
           </Grid>
           {/* <Grid item xs={12} sm={6} md={3}>
             <CustomCards title="Burner Status" status="OFF" color="info" Icon={<LocalFireDepartmentIcon sx={{fontSize:'2.5rem'}}/>}/> 

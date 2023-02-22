@@ -15,14 +15,16 @@ const useStyles = makeStyles((theme)=> ({
 const HybridGeyserOverview = () => {
     const classes = useStyles()
     const user = useSelector((state) => state.auth.user)
-    // const user_id = useSelector((state) => state.auth.user.id);
+    const user_id = useSelector((state) => state.auth.user.id);
     const dispatch = useDispatch()
     const geyserhybrid = useSelector((state)=> state.geyserhybrid.geyser)
     console.log(geyserhybrid)
     const [blocked, setBlocked] = React.useState(false)
 
     React.useEffect(()=> {
-        // dispatch(get_hybrid_geyser_sensor)
+     dispatch(get_hybrid_geyser_sensor(user_id))
+            
+        
     }, [])
 
   return (
@@ -45,7 +47,7 @@ const HybridGeyserOverview = () => {
                 
             ) : !blocked ? (
                 <>
-                <ModuleList /> 
+                <ModuleList geyserhybrid={geyserhybrid} /> 
                 </>
             ) : null
         }

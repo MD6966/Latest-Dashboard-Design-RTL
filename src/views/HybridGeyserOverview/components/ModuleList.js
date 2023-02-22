@@ -1,11 +1,15 @@
 import { Grid, Typography } from '@mui/material'
 import React from 'react'
 import {RotatingLines  } from 'react-loader-spinner'
+import { useDispatch } from 'react-redux'
 import HybirdGeyserDashboard from './HybridGeyserDashboard/HybirdGeyserDashboard'
 
 
-const ModuleList = () => {
+const ModuleList = (props) => {
+  const {geyserhybrid} = props
     const [loading ,setLoading] = React.useState(false)
+    const dispatch = useDispatch()
+    
     const geyser_hybrid ={
         length: 2,
     }
@@ -50,7 +54,7 @@ const ModuleList = () => {
             sm={11}
             xl={11}
             >
-                   <HybirdGeyserDashboard />  
+                   <HybirdGeyserDashboard geyserhybrid={geyserhybrid}/>  
             </Grid>
 
             </Grid>
