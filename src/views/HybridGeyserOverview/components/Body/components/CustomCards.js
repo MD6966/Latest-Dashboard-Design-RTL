@@ -1,7 +1,8 @@
 import React from 'react'
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
-import { fShortenNumber } from '../../../../../utils/formatNumber'
+import { animated, useSpring } from '@react-spring/web'
+
 
 const StyledIcon = styled('div')(({ theme }) => ({
     margin: 'auto',
@@ -17,6 +18,15 @@ const StyledIcon = styled('div')(({ theme }) => ({
 
 const CustomCards = (props) => {
     const {title, Icon, status, color='primary', sx, ...other} = props
+    const fade = useSpring({
+      from : {
+        opacity:0
+      },
+      to: {
+        opacity:1
+      },
+      config: { duration: 500 },
+    })
   return (
     <Card
     sx={{
@@ -42,7 +52,9 @@ const CustomCards = (props) => {
            {Icon}
 
         </StyledIcon>
+        <animated.div style={fade}>
         <Typography variant="h3">{status}</Typography>
+        </animated.div >
         <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         {title}
       </Typography>
