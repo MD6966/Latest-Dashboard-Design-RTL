@@ -18,7 +18,7 @@ const HybridGeyserOverview = () => {
     const user_id = useSelector((state) => state.auth.user.id);
     const dispatch = useDispatch()
     const geyserhybrid = useSelector((state)=> state.geyserhybrid.geyser)
-    console.log(geyserhybrid)
+    // console.log(geyserhybrid)
     const [blocked, setBlocked] = React.useState(false)
 
     React.useEffect(()=> {

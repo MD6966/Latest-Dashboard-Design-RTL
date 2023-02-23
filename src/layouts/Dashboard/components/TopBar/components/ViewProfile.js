@@ -53,8 +53,6 @@ const ViewProfile = (props) => {
                      </label>
                      </Button>
                       <input id='img' type='file' style={{display:'none'}} onChange={handleChange} />
-                    
-                     
                       <Button variant= {picture.file ? 'contained' : 'disabled'}
                     onClick={handleUpload}
                     > Upload</Button>

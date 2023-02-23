@@ -2,53 +2,58 @@ import React from 'react'
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { Divider, InputLabel } from '@mui/material';
+import { Button, Divider, Grid, InputLabel } from '@mui/material';
 import Body from './../Body/Body'
+import { Link } from 'react-router-dom';
 
 const Header = (props) => {
   const {geyserhybrid} = props
-    const testData = [
-        {id:0, title:'Geyser 1'},
-        {id:1, title:'Smart Geyser'},
-        {id:2, title:'Mudasser Geyser'},
-        {id:3, title:'Test System'},
-
-    ]
-    // const [data, setData] = React.useState(testData[0])
     const [value, setValue] = React.useState(geyserhybrid[0])
     const handleChange = (f) => {
-        // setData(f)
-        // console.log(test)
         setValue(f)
 
     }
   return (
     <div>
-      <FormControl fullWidth>
+      <Grid container spacing={3}>
+        <Grid item xs= {10} md={10} lg={10} xl={10}>
+        <FormControl fullWidth>
         <InputLabel> Select Module</InputLabel>
         <Select
         label="Select Module"
         >
            {
-      geyserhybrid.map((val,index) => (
-       
-        
-        <MenuItem onClick={() => handleChange(val)} value={val.name} index={index} key ={index}>{val.name}
-            
-         </MenuItem>
-       
-        )
+      geyserhybrid.map((val,index) => {
+        return(
+      
+          <MenuItem onClick={() => handleChange(val)} value={val.name} index={index} key ={index}>{val.name}
+              
+           </MenuItem>
+         
+          )
+      }
       )
       
       }
         </Select>
       </FormControl>
+        </Grid>
+        <Grid item xs= {2} md={2} lg={2} xl={2}>
+      <Button
+      variant='contained'
+      component={Link}
+      to='/dashboard/geyser-modules'
+      > All Modules</Button>
+        </Grid>
+
+      </Grid>
+     
       <Divider sx={{mt:'1rem'}} /> 
       {
         geyserhybrid.map((v, index) => (
           <>
           {
-            value.name === v.name ? 
+            value._id === v._id ? 
             <Body 
             key={index}
             sensor = {v}

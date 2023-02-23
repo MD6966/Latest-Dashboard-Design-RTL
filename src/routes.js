@@ -19,6 +19,7 @@ import Email from "./views/Admin/components/Email/Email";
 import RegisterAdminSide from "./views/Admin/components/Register";
 import ErrorPage from './components/ErrorBoundary/components/ErrorPage'
 import { useSelector } from "react-redux";
+import GeyserModules from "./views/HybridGeyserOverview/components/Body/components/GeyserModules/GeyserModules";
 
 
 
@@ -51,6 +52,8 @@ export default function Router() {
             { path: "tank", element: <WaterTankSystem /> },
             { path: "fuel", element: <FuelMonitoringSystem /> },
             { path: "fuel-modules", element: <AllModules /> },
+            { path: "geyser-modules", element: <GeyserModules /> },
+
           ],
         },
       ],
