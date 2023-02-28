@@ -24,14 +24,39 @@ const GeyserModules = () => {
   };
   const [offset, setOffset] = React.useState(0);
   const [page, setPage] = React.useState(0);
+  const [state, setState] = React.useState({
+    searchValue: '',
+    list: []
+})
 
+const handleChange = (e) => {
+  const results = geyserhybrid.filter(val => {
+      if (e.target.value === "") return geyserhybrid
+      return val.name.toLowerCase().includes(e.target.value.toLowerCase())
+  })
+  setState({
+      searchValue: e.target.value,
+      list: results
+  })
+  
+}
+
+React.useEffect(() => {
+  setState({
+      list: geyserhybrid
+  })
+},[])
 
   return (
     <Page
     title ="Geyser Modules"
     >
        <Box sx={{p:'2rem 5rem'}}>
-          <TextField fullWidth variant='standard' label="Search Module Here" />
+          <TextField fullWidth variant='standard' label="Search Module Here" 
+          name={state.searchValue}
+          value={state.searchValue}
+          onChange={handleChange}
+          />
         </Box>
        <CenteredBox>
             <CenteredBox sx={{ml:'2rem'}}>
@@ -48,8 +73,9 @@ const GeyserModules = () => {
           <Divider sx={{m: '10px 0'}} /> 
       <Grid container spacing={2}>
         {
-            geyserhybrid.slice(offset, offset + rowsPerPage).map((val)=> {
-              console.log(val)
+          !state.list.length ? <Typography sx={{mt:'1rem', ml:'1rem'}} variant='h3'> No Results Found ! </Typography>: 
+            state.list.slice(offset, offset + rowsPerPage).map((val)=> {
+              // console.log(val)
                 return(
                     <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
                          <GeyserModuleStatus data = {val} /> 
