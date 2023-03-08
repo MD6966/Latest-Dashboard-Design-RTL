@@ -5,6 +5,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import EmailIcon from '@mui/icons-material/Email';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 const Footer = () => {
   const StyledLink = styled(Link)(({theme})=> ({
     textDecoration: 'none',
@@ -13,6 +14,7 @@ const Footer = () => {
       fontWeight:'bold'
     }
   }))
+  const isAdminAuthenticated = useSelector((state)=> state.admin.isAdminAuthenticated)
   return (
     <div style={{height:'60vh', background:'#CDCED0', padding:'5rem'}}>
       <Grid container spacing={5}>
@@ -73,7 +75,7 @@ info@rubitronlabs.org
 <Box sx={{display:'flex', mb:'1rem'}}>
 
 <AdminPanelSettingsIcon sx={{mr:'1rem'}} />
-<StyledLink to='/auth/admin/login' >
+<StyledLink to={isAdminAuthenticated ? '/admin/users' : '/auth/admin/login'} >
 Admin 
 </StyledLink>
 </Box>

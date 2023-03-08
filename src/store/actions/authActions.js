@@ -53,7 +53,48 @@ export const logout = () => (dispatch) =>
   dispatch({
     type: 'LOGOUT_SUUCCESS'
   });
+  export const adminLogin = ({ username, password }, ip) => async (
+    dispatch,
+    getState
+  ) => {
+    dispatch({
+      type: 'USER_LOADING'
+    });
   
+    const config = {
+      headers: {
+        'Content-type': 'Application/json'
+      }
+    };
+  
+    const body = JSON.stringify({
+      username,
+      password,
+      ip
+    });
+  
+    try {
+      const data = await axios.post(
+        `${process.env.REACT_APP_URL}admin/login`,
+        body,
+        config
+      );
+      console.log(data)
+    
+      dispatch({
+        type: 'ADMIN_LOGIN_SUCCESS',
+        payload: data.data
+      });
+    } catch (err) {
+      console.log(err);
+      dispatch({
+        type: 'GET_ERRORS',
+        message: err.response.data,
+        id: 'LOGIN_FAIL',
+        status: err.response.status
+      });
+    }
+  };
   export const makeConfig = async (type) => {
     const token = await localStorage.getItem('token');
     const config = {

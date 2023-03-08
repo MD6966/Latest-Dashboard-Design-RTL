@@ -1,8 +1,9 @@
 import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
 import Page from '../../../../components/page/Page'
-
+import {getAllUsers} from '../../../../store/actions/usersActions'
 import MUIDataTable from "mui-datatables";
+import { useDispatch, useSelector } from 'react-redux';
 
 const columns = ["User ID", "Name", "Email", "See Dashboards", "Add Dashboard", "Registered Modules"];
 
@@ -29,6 +30,12 @@ const options = {
 };
 
 const Users = () => {
+  const dispatch = useDispatch()
+  const users = useSelector((state)=> state.users.users)
+  console.log(users)
+  React.useEffect(()=> {
+    dispatch(getAllUsers())
+  },[])
   return (
     <Page
     title="Users"

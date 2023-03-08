@@ -23,6 +23,7 @@ import GeyserModules from "./views/HybridGeyserOverview/components/Body/componen
 
 
 
+
 export default function Router() {
   const isAuthenticated = useSelector((state)=> state.auth.isAuthenticated)
   console.log(isAuthenticated)
@@ -61,7 +62,7 @@ export default function Router() {
     {
       path: "auth/admin",
       element: <AdminAuthLayout />,
-      children: [{ path: "login", element: <AdminLoginPage /> }],
+      children: [{ path: "login", exact: true , element:<AdminLoginPage />}],
     },
     {
       path: "admin",
