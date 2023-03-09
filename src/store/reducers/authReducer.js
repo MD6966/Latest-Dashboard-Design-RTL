@@ -51,6 +51,16 @@ switch(action.type) {
     //         isLoading: false
     //       };
     // };
+     case 'ADMIN_LOGOUT_SUCCESS' : {
+        localStorage.removeItem('token')
+        return {
+            token: null,
+            user: null,
+            isAuthenticated: false,
+            isLoading: false
+          };
+    };
+    
     case 'REGISTER_SUCCESS':
   return {
     ...state,

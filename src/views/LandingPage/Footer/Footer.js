@@ -14,7 +14,8 @@ const Footer = () => {
       fontWeight:'bold'
     }
   }))
-  const isAdminAuthenticated = useSelector((state)=> state.admin.isAdminAuthenticated)
+  const isAdminAuthenticated = useSelector((state)=> state.admin.isAuthenticated)
+  console.log(isAdminAuthenticated, "Admin Auth")
   return (
     <div style={{height:'60vh', background:'#CDCED0', padding:'5rem'}}>
       <Grid container spacing={5}>

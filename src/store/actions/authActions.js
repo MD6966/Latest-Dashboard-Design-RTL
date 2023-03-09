@@ -53,6 +53,7 @@ export const logout = () => (dispatch) =>
   dispatch({
     type: 'LOGOUT_SUUCCESS'
   });
+
   export const adminLogin = ({ username, password }, ip) => async (
     dispatch,
     getState

@@ -55,6 +55,7 @@ const initState = {
       case 'LOGIN_FAIL':
       case 'LOGOUT_SUCCESS':
       case 'REGISTER_FAIL':
+      case 'ADMIN_LOGOUT_SUCCESS':
         localStorage.removeItem('token');
         return {
           token: null,
