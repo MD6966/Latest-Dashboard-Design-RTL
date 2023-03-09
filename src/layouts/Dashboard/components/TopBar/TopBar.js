@@ -15,6 +15,8 @@ import HelpCenter from './components/HelpCenter';
 import { logout } from '../../../../store/actions/authActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 const NAV_WIDTH = 280;
 
 const HEADER_MOBILE = 54;
@@ -73,8 +75,24 @@ const TopBar = () => {
       setAnchorEl(null)
    }
    const handleSignOut = () => {
-    dispatch(logout())
-    navigate('/')
+    handleClose()
+    confirmAlert({
+      title: 'Log Out',
+      message: 'Are you sure to log out ?',
+      buttons:[
+        {
+          label: 'Yes',
+          onClick: ()=>{
+            dispatch(logout())
+            navigate('/')
+          }
+        },
+       {
+        label: 'No',
+       }
+
+      ]
+    })
    }
   return (
     <>
