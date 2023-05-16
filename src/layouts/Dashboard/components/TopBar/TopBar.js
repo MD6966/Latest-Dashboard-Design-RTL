@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import { AppBar, Toolbar, styled, Typography, Stack, Avatar, Box, Menu, MenuItem, 
-Container, Divider, List, ListItemIcon, ListItemText, ListItem, Button } from '@mui/material'
+Container, Divider, List, ListItemIcon, ListItemText, ListItem, Button, IconButton } from '@mui/material'
 import { bgBlur } from '../../../../utils/cssStyles'
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import PersonIcon from '@mui/icons-material/Person';
@@ -16,6 +16,7 @@ import { logout } from '../../../../store/actions/authActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
+import NotificationsPopover from '../../../../components/NotificationsPopover/NotificationsPopover';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 const NAV_WIDTH = 280;
 
@@ -49,6 +50,12 @@ const TopBar = () => {
   const [settingsDialog, setSettingsDialog]= useState(false)
   const [helpDialog, setHelpDialog]= useState(false)
   const [sensorDialog, setSensorDialog]= useState(false)
+  const [openNotifications, setOpenNotifications] = useState(false);
+  const notificationsRef = useRef(null);
+  const notifications = useSelector(
+    (state) => state.notification.notifications
+  );
+
   const handleAvatarClick =(event) => {
     setAnchorEl(event.currentTarget);
 
@@ -94,6 +101,13 @@ const TopBar = () => {
       ]
     })
    }
+   const handleNotificationsOpen = () => {
+    setOpenNotifications(true);
+  };
+
+  const handleNotificationsClose = () => {
+    setOpenNotifications(false);
+  };
   return (
     <>
     <StyledRoot >
@@ -110,7 +124,12 @@ const TopBar = () => {
             sm:1
           }}
           >
-              <NotificationsActiveIcon sx={{color:'#000000', mr:'1rem'}} /> 
+            <IconButton
+            onClick={handleNotificationsOpen}
+            ref={notificationsRef}
+            >
+              <NotificationsActiveIcon sx={{color:'#000000',}} /> 
+            </IconButton>
               <Avatar src={`${process.env.REACT_APP_URL}${user.profilePic}`} sx={{cursor:'pointer'}} onClick={handleAvatarClick}/>
           </Stack>
 
@@ -171,7 +190,12 @@ const TopBar = () => {
             <AddSensor open={sensorDialog} close ={()=> setSensorDialog(false)} /> 
             <Settings open={settingsDialog} close={()=> setSettingsDialog(false)} /> 
             <HelpCenter open={helpDialog} close={()=> setHelpDialog(false)}/> 
-
+            <NotificationsPopover
+        anchorEl={notificationsRef.current}
+        notifications={notifications}
+        onClose={handleNotificationsClose}
+        open={openNotifications}
+      />
             </>
   )
 }

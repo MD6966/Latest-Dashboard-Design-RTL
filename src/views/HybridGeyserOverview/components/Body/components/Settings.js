@@ -47,7 +47,7 @@ const handleChange = (event) => {
     setDialog(false)
   }
   return (
-    <Card sx={{p:2}}>
+    <Card sx={{p:2, height:'100vh'}} elevation={5}>
         <Card elevation={0} sx={{mb:'1rem'}}>
         <Typography variant='h4'> Settings  </Typography>
         <Divider /> 

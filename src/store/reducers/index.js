@@ -5,6 +5,7 @@ import fuelReducer from "./fuelReducer";
 import geyserHybridReducer from "./geyserHybridReducer";
 import geyserReducer from './geyserReducer'
 import userReducer from './userReducer';
+import notificationReducer from "./notificationReducer";
 
 const rootReducer = combineReducers({
     admin: adminReducer,
@@ -13,6 +14,8 @@ const rootReducer = combineReducers({
     geyserhybrid : geyserHybridReducer,
     fuel : fuelReducer,
     users: userReducer,
+    notification: notificationReducer,
+
     
 })
 

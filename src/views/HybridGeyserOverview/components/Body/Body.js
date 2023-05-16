@@ -42,7 +42,7 @@ const Body = (props) => {
           <Grid item xs={12} md={6} lg={4} >
             <RecentAlerts /> 
           </Grid>
-          <Grid item xs={12} md={6} lg={8} >
+          {/* <Grid item xs={12} md={6} lg={8} >
            <Logs 
            title="Website Visits"
            subheader="(+43%) than last year"
@@ -80,7 +80,7 @@ const Body = (props) => {
              },
            ]}
            />
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container> 
     </div>

@@ -30,7 +30,7 @@ const AdminLoginForm = () => {
     const isLoading = useSelector((state) => state.admin.isLoading);
     useEffect(() => {
       axios.get('https://api.ipify.org?format=json').then((data) => {
-        setIp(data.data.ip);
+        setIp(data.data.ip); 
       });
     }, []);
     const handleChange =(e) => {

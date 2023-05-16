@@ -37,7 +37,8 @@ const Login = () => {
       const [open, setOpen]= React.useState(false)
       const [showPassword, setShowPassword] = React.useState(false)
       const isAuthenticated = useSelector((state)=> state.auth.isAuthenticated)
-      const isLoading = useSelector((state) => state.auth.isLoading)
+      // const isLoading = useSelector((state) => state.auth.isLoading)
+      const [isLoading, setLoading] = React.useState(false)
       const {enqueueSnackbar} = useSnackbar()
 
       useEffect(() => {
@@ -56,12 +57,16 @@ const Login = () => {
     setFormValues({...formValues, [name]: value})
   }
   const handleSubmit = async (e) => {
+    setLoading(true)
       e.preventDefault();
       await dispatch(login(formValues, ip)).then((res)=>
       // alert(res.err.response.data)
-      enqueueSnackbar(res.err.response.data, {
+      {
+        setLoading(false)
+       enqueueSnackbar(res.err.response.data, {
         variant:'error'
       })
+      }
       )
       // setFormValues(initialValues);
   }

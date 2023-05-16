@@ -16,7 +16,7 @@ export const getFuelSensors = (user_id) => async (dispatch, getState) => {
     const data = await axios.get(
       `${process.env.REACT_APP_URL}fuel/${user_id}`,
       config
-    );
+    )
     dispatch({
       type: 'GET_FUEL',
       payload: data.data
